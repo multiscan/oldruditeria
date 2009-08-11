@@ -1,0 +1,23 @@
+<script type="text/javascript">
+ScreenSaver.ss = new ScreenSaver(10000); 
+WindowLoad.registerCall(ScreenSaver.init);
+<% if @screensaver %>
+  WindowLoad.registerCall(ScreenSaver.start);
+<% end %>
+</script>
+
+<div id="users" >
+<% for user in @users %>
+
+<div class="user">
+  <% linkcontent = (image_tag(user.get_picture,:size => "100x75") << content_tag("div",user.name)) %>
+  <%= link_to linkcontent, :action => 'show_state', :id => user %>
+</div>
+<% end %>
+</div>
+
+<div class="footer">
+	<div class="button">
+		<%= link_to 'New user', :action => 'new_user' %>
+	</div>
+</div>

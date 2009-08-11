@@ -1,0 +1,5 @@
+<div style="text-align:center; margin-top: 100px;">
+<span class="shotbutton"><%= link_to "Shot!", :action => "shot", :id => @user %></span>
+<img src="<%=WEBCAM_URL%>" />
+<span class="shotbutton"><%= link_to "Cancel", :controller => "buy", :action => "show_state", :id => @user %></span>
+</div>

@@ -1,0 +1,86 @@
+<h1>Cafeteria LTHC - admin</h1>
+
+<h1>New payment</h1>
+
+<%= form_tag :controller => "payments", :action => 'create' %>
+
+<%= error_messages_for 'payment' if @payment %>
+
+
+<%= collection_select('payment', 'user_id', User.find(:all, :order => 'name ASC'), 'id', 'name') %>
+
+<%= text_field 'payment', 'amount', :size => "5"  %> CHF
+
+<%= date_select 'payment', 'date'  %>
+<!--[eoform:payment]-->
+
+<%= submit_tag "Add" %>
+</form>
+
+<hr />
+
+<a href="/users/send_personal_report">
+<%= image_tag('mail.gif') %>
+</a>
+<p>Send a report by mail</p>
+
+<hr />
+
+<% row_class = cycle("even", "odd") %>
+
+<%= form_tag :action => 'index' %>
+<h1>Report for
+<%= select('report', 'month', @previous_months, {}, :onchange => "form.submit();") %>
+</h1>
+</tag>
+
+<table>
+  <tr>
+  <th class="report">Balance</th>
+  <th class="report">Name</th>
+  <% for product in @products %>
+    <th class="report"><%= Inflector.humanize(product.name) %></th>
+  <% end %>
+  </tr>
+
+	<% for user in User.current_users %>
+		<tr class="<%= row_class %>">
+			<td class="report" style="<%= user.balance < 0 ? 'color:red' : 'color: green' %>">
+			  <%= "Fr. %.2f" % user.balance %></td>
+			<td class="report"><%= Inflector.humanize(user.name) %></td>
+			<% for product in @products %>
+				<td class="report" style="text-align: center"><%=  user.purchase_count(product.id, @start_of_report, @end_of_report) %></td>
+			<% end %>
+		</tr>
+	<% end %>
+	<tr class="<%= row_class %>"><td colspan="9" align="center" >Destroyed Users</td></tr>
+	
+	
+	<% #Every old user which hasn't payed everything will appear in the report %>
+	
+	<% for user in User.destroyed_users %>
+		<% if user.balance < 0 %>
+			<tr class="<%= row_class %>" style="padding-top: 2em">
+				<td class="report" style="text-align: right"><%= "Fr. %.2f" % user.balance %></td>
+				<td class="report"><%= Inflector.humanize(user.name) %></td>
+				<% for product in @products %>
+					<td class="report" style="text-align: center"><%=  user.purchase_count(product.id, @start_of_report, @end_of_report) %></td>
+				<% end %>
+			</tr>	
+		<% end %>
+		
+		
+		<% #Every old user with a positive balance will only appear only in the report of the month he leaved %>
+		
+		<% if (user.balance >= 0 and user.expiry > @start_of_report and user.expiry < @end_of_report) %>
+			<tr class="<%= row_class %>" style="padding-top: 2em">
+				<td class="report" style="text-align: right"><%= "Fr. %.2f" % user.balance %></td>
+				<td class="report"><%= Inflector.humanize(user.name) %></td>
+				<% for product in @products %>
+					<td class="report" style="text-align: center"><%=  user.purchase_count(product.id, @start_of_report, @end_of_report) %></td>
+				<% end %>
+			</tr>	
+		<% end %>
+	<% end %>
+</table>
+

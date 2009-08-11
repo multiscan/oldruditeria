@@ -1,0 +1,9 @@
+<h1>Editing payment</h1>
+
+<%= form_tag :action => 'update', :id => @payment %>
+  <%= render_partial 'form' %>
+  <%= submit_tag 'Edit' %>
+</form>
+
+<%= link_to 'Show', :action => 'show', :id => @payment %> |
+<%= link_to 'Back', :action => 'list' %>

@@ -1,0 +1,33 @@
+<h1>Listing payments</h1>
+
+<table>
+  <tr>
+  <th>Name</th>
+  <% for column in Payment.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  <th>Balance</th>
+  </tr>
+  
+<% for payment in @payments %>
+  <tr>
+    <td><%= payment.user.name %></td>
+<!--
+<% for column in Payment.content_columns %>
+      <td style="text-align: center"><%=h payment.send(column.name) %></td>
+    <% end %>
+-->
+    <td style="text-align: right"><%= payment.amount %>&nbsp; CHF &nbsp;</td><td><%= payment.date.strftime("%a %d %b %Y") %></td>
+    <td style="text-align: right"><%= sprintf("%6.2f CHF", payment.user.balance) %></td>
+    <td><%= link_to 'Show', :action => 'show', :id => payment %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => payment %></td>
+    <td><%= link_to 'Destroy', {:action => 'destroy', :id => payment}, :confirm => 'Are you sure?' %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @payments %>
+
+
+<br />
+<%= link_to 'New payment', :action => 'new' %>

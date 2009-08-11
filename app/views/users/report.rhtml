@@ -1,0 +1,54 @@
+<% row_class = cycle("even", "odd") %>
+
+<h1><%= @start_of_report.strftime("Report for the last month: %B") %></h1>
+
+<table>
+  <tr>
+  <th class="report">Balance</th>
+  <th class="report">Name</th>
+  <% for product in @products %>
+    <th class="report"><%= Inflector.humanize(product.name) %></th>
+  <% end %>
+  </tr>
+
+	<% for user in User.current_users %>
+		<tr class="<%= row_class %>">
+			<td class="report" style="text-align: right"><%= String(user.balance) << ' CHF' %></td>
+			<td class="report"><%= Inflector.humanize(user.name) %></td>
+			<% for product in @products %>
+				<td class="report" style="text-align: center"><%=  user.purchase_count(product.id, @start_of_report, @end_of_report) %></td>
+			<% end %>
+		</tr>
+	<% end %>
+	<tr></tr>	<tr></tr>	<tr></tr>	<tr></tr>  <tr></tr>	<tr></tr>	<tr></tr>	<tr></tr>
+	
+	
+	<% #Every old user which hasn't payed everything will appear in the report %>
+	
+	<% for user in User.destroyed_users %>
+		<% if user.balance < 0 %>
+			<tr class="<%= row_class %>" style="padding-top: 2em">
+				<td class="report" style="text-align: right"><%= String(user.balance) << ' CHF' %></td>
+				<td class="report"><%= Inflector.humanize(user.name) %></td>
+				<% for product in @products %>
+					<td class="report" style="text-align: center"><%=  user.purchase_count(product.id, @start_of_report, @end_of_report) %></td>
+				<% end %>
+			</tr>	
+		<% end %>
+		
+		
+		<% #Every old user with a positive balance will only appear only in the report of the month he leaved %>
+		
+		<% if (user.balance >= 0 and user.expiry > @start_of_report and user.expiry < @end_of_report) %>
+			<tr class="<%= row_class %>" style="padding-top: 2em">
+				<td class="report" style="text-align: right"><%= String(user.balance) << ' CHF' %></td>
+				<td class="report"><%= Inflector.humanize(user.name) %></td>
+				<% for product in @products %>
+					<td class="report" style="text-align: center"><%=  user.purchase_count(product.id, @start_of_report, @end_of_report) %></td>
+				<% end %>
+			</tr>	
+		<% end %>
+	<% end %>
+</table>
+
+<%= image_tag('mail.gif',:size => "80x100") %><%= link_to 'Mail the users', :action => 'send_personal_report' %>

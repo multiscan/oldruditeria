@@ -1,0 +1,53 @@
+<script type="text/javascript">
+ScreenSaver.ss = new ScreenSaver(10000,"logout"); 
+WindowLoad.registerCall(ScreenSaver.init);
+</script>
+
+<div id="userinfo">
+
+<div style="margin-bottom:100px;">
+<a href="/pictures?id=<%= @user.id %>"><%= image_tag(@user.get_picture, :alt => "Add my own picture!", :size => "100") %></a>
+<%= link_to @user.name, :action => "edit_user", :id => @user.id %>
+</div>
+
+<% if @session_products.size>0 %>
+  <h2>Bought during this session:</h2>
+<% end %>
+<table id="ticket">
+
+<% for session_product in @session_products %>
+    <tr>
+        <td class="sp-name"><%= session_product['name'] %></td>
+        <td class="sp-quantity"><%= "x " << String(session_product['quantity']) %></td>
+	<td class="sp-total"><%= "%.2f" % session_product['total'] %></td>
+	<td class="removeone"><%=link_to '', :action => 'remove_purchase',:product_id => session_product['id'], :user_id => @user.id, :login_time => @login_time %></td>
+	<td class="removeall"><%=link_to '', :action => 'remove_purchase',:product_id => session_product['id'], :user_id => @user.id, :login_time => @login_time, :number => session_product['quantity'] %></td>
+    </tr>
+<% end %>
+<% if @session_products.size>0 %>
+<tr id="balanceline">
+<% else %>
+<tr>
+<% end %>
+<td>Remaining Credit:</td><td></td><td style="color:<%= (@user.balance < 0) ? 'red' : 'green' %>" id="balance"><%= "%.2f" % @user.balance %> </td></tr>
+</table>
+
+</div>
+
+<ul id="buybuttons">
+
+<% for product in @products %>
+
+<li class="buybutton">
+		<%=link_to image_tag(String(product.picture),:size => "100x100") <<  ("Fr. %.2f" % product.cost), :action => 'add_purchase', :product_id => product.id, :user_id => @user.id, :login_time => @login_time %>
+        </li>
+<% end %>
+</ul>
+
+<br/>
+
+<div class="footer">
+	<div class="button">
+		<%=link_to "logout", :action => 'login' %>
+	</div>
+</div>

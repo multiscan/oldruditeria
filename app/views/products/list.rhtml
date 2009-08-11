@@ -1,0 +1,38 @@
+<h1>Listing products</h1>
+
+<table>
+  <tr>
+  <% for column in Product.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  <th>Cost</th>
+  </tr>
+  
+<% @products.each do |product| %>
+  <tr>
+  <% for column in Product.content_columns %>
+		<% # find if the product is active, and convert the value to yes/no %>
+		<% if column.name == "visible" %>
+			<td><%= (product.send(column.name) == 1) ? "Yes" : "No" %></td>
+		<% else %>
+			<td><%=h product.send(column.name) %></td>
+		<% end %>
+  <% end %>
+		<% # find its assigned cost %>
+    <td><%=h product.cost %></td>		
+    <td><%= link_to 'Show', :action => 'show', :id => product %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => product %></td>
+		<% if product.visible == 1 %>
+			<td><%= link_to 'Destroy', {:action => 'destroy', :id => product}, :confirm => 'Are you sure?' %></td>
+		<% else %> 
+				<td><%= link_to 'Restore', {:action => 'restore', :id => product}, :confirm => 'Are you sure?' %></td>
+	  <% end %>
+	</tr>
+<% end %>
+</table>
+
+<%= will_paginate @products %>
+
+<br />
+
+<%= link_to 'New product', :action => 'new' %>

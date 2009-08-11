@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>Ruditeria Administration : <%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'admin' %>
+</head>
+<body>
+<div id="leftsidebar">
+<img id="header" src="/images/header.jpg" width="760" height="35" alt="header" />
+
+    
+<p style="color: green"><%= flash[:notice] %></p>
+
+
+<div id="menu">
+<h2 class="hide">Menu:</h2>
+<ul>
+<ul>
+<li><A HREF="/admin">Administration</A></li>
+<li><A HREF="/users">Users</A></li>
+<li><A HREF="/purchases">Purchases</A></li>
+<li><A HREF="/products">Products</A></li>
+<li><A HREF="/payments">Payments</A></li>
+</ul>
+</div>
+
+<div id="content">
+
+<%= @content_for_layout %>
+
+
+</div>
+
+<div id="footer"> Developped by Gilles Cherix, Gregory Dyke and Florian Jousset</div>
+
+</body>
+</html>

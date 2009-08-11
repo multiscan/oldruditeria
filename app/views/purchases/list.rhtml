@@ -1,0 +1,33 @@
+<h1>Listing purchases</h1>
+
+<table>
+  <tr>
+  <th>Name</th>
+  <th>Product</th>
+  <% for column in Purchase.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for purchase in @purchases %>
+  <tr>
+  <td><%= purchase.user.name %></td>
+  <td><%= purchase.product.name %></td>  
+<!--
+  <% for column in Purchase.content_columns %>
+    <td><%=h purchase.send(column.name) %></td>
+  <% end %>
+-->
+    <td>&nbsp;<%= purchase.date.strftime("%a %d %b %Y %H:%M") %>&nbsp;</td>
+    <td><%= link_to 'Show', :action => 'show', :id => purchase %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => purchase %></td>
+    <td><%= link_to 'Destroy', {:action => 'destroy', :id => purchase}, :confirm => 'Are you sure?' %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @purchases %>
+
+<br />
+
+<%= link_to 'New purchase', :action => 'new' %>

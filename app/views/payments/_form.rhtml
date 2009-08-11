@@ -1,0 +1,14 @@
+<%= error_messages_for 'payment' %>
+
+<!--[form:payment]-->
+
+<p><label for="payment_user">User</label><br/>
+<%= collection_select('payment', 'user_id', User.find(:all, :order => 'name ASC'), 'id', 'name') %></p>
+
+<p><label for="payment_amount">Amount</label><br/>
+<%= text_field 'payment', 'amount'  %> CHF</p>
+
+<p><label for="payment_date">Date</label><br/>
+<%= date_select 'payment', 'date'  %></p>
+<!--[eoform:payment]-->
+

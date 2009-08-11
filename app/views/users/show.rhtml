@@ -1,0 +1,19 @@
+<p>
+  <b>Name:</b> <%=h @user.name %>
+</p>
+<p>
+  <b>Email:</b> <%=h @user.email %>
+</p>
+<p>
+  <b>Camipro:</b> <%=h @user.camipro %>
+</p>
+
+<div>
+<p>
+<%= image_tag(@user.get_picture,:size => "80x100") %>
+</p>
+</div>
+
+
+<%= link_to 'Edit', :action => 'edit', :id => @user %> |
+<%= link_to 'Back', :action => 'list' %>

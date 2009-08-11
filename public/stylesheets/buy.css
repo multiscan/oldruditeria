@@ -1,0 +1,181 @@
+body { 
+  background-color: black;
+  color: white;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 1.2em;
+}
+
+a {
+color: white;
+text-decoration: none;
+}
+
+.user { 
+  float:left;
+  height: 90px;
+  width: 105px;
+  margin: 10px;
+}
+
+h1 {
+  font-size:3em ;
+}
+img {
+  border: none
+}
+
+.product {
+  margin:20px 20px;
+  width: 200px;
+  float: left;
+  border: none;
+}	
+
+.product img {
+margin: 5px auto;
+display: block;
+}
+
+.footer {
+  position:absolute;
+  bottom: 0;
+  margin: 20px;
+}
+
+#userinfo a { 
+  font-size:40px;
+}
+
+a img { 
+  margin-right:30px;
+  vertical-align:middle;
+} 
+
+.removeall a, .removeone a { 
+  display: block;
+  width: 64px;
+  height: 64px;
+}
+
+.removeall a {  
+  background-image:url(/images/gnome-fs-trash-empty.png);
+}
+
+.removeone a { 
+  background-image:url(/images/grey-minus.png);
+}
+
+.removeall a:active { 
+  background-image:url(/images/gnome-fs-trash-empty-accept.png);
+}
+
+.removeone a:active { 
+  background-image:url(/images/yellow-minus.png);
+}
+
+.buybutton { 
+  margin-top:50px;
+}
+
+.buybutton a { 
+  height: 110px;
+  display: block;
+}
+
+.buybutton a img {
+  margin-right:30px;
+  border: 5px outset gray;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  vertical-align: middle;
+}
+
+.buybutton a:active img, .buybutton a img:focus { 
+  border-style: inset;
+}
+
+h2 { 
+  font-size:20px;
+}
+
+p.spaced {
+	font-size: 24px;
+}
+
+div.center {
+	margin: auto;
+}
+
+#userinfo { 
+  position:absolute;
+  top: 100px;
+  left: 50px;
+  width:600px;
+}
+
+#buybuttons { 
+  position:absolute;
+  top:30px;
+  left:700px; 
+  list-style-type: none; 
+  font-size:40px;
+}
+
+#balanceline { 
+  padding-top:10px;
+  padding-bottom:1px;
+  border-top:2px solid white;
+}
+
+#balance { 
+  font-weight:bold;
+  border-bottom: 3px double white;
+}
+
+#ticket { 
+  padding-left:40px;  
+  border-collapse:collapse;
+  font-size: 25px;
+ /* background-color:white;
+  color:black;*/
+}
+
+#ticket td { 
+  padding-bottom:10px;
+}
+
+.sp-quantity { 
+  width:70px;
+}
+
+.shotbutton {
+padding: 2px 10px 3px 10px;
+margin: 0 50px 0 50px;
+border: 2px outset #5AA0B8;
+background: #046;
+color: #FFF;
+}
+
+.shotbutton :active {
+#border: 2px inset #5aa0b8;
+background: #046;
+color: #5AA0B8;
+}
+
+.button {
+border: 2px outset #5AA0B8;
+background: #046;
+color: #FFF;
+float:right;
+}
+
+.button :active, .button :hover {
+#border: 2px inset #5aa0b8;
+background: #046;
+color: #5AA0B8;
+}
+
+.button a {
+  padding: 4px 20px 4px 20px;
+  display: block;
+}

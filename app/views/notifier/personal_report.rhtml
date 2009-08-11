@@ -1,0 +1,13 @@
+Dear <%= @user.name %>,
+
+During the month of <%= @month %>, you bought:
+<%for product in @products %><%if @user.purchase_count(product.id, @start, @end) > 0 %>
+		<%= String(@user.purchase_count(product.id, @start, @end)) << ' ' << product.name %><% end %><% end %>
+
+Your cafetaria account balance is now : <%= "%.2f CHF" % @balance %>
+
+<% if @balance < 0 %>
+	You can pay your due to Yvonne
+<% end %>
+
+Thanks

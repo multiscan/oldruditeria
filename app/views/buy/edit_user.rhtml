@@ -1,0 +1,33 @@
+<script type="text/javascript">
+ScreenSaver.ss = new ScreenSaver(10000); 
+WindowLoad.registerCall(ScreenSaver.init);
+<% if @screensaver %>
+  WindowLoad.registerCall(ScreenSaver.start);
+<% end %>
+</script>
+
+<% load_keyboard %>
+
+<%= form_tag :action => 'update_user', :id => @user %>
+
+<%= error_messages_for 'user' %>
+
+<div style="margin: 100px auto; width: 300px;">
+<p class="spaced"><label for="user_name">Name</label><br/>
+<%= text_field_with_keyboard 'user', 'name'  %></p>
+
+<p class="spaced"><label for="user_email">Email</label><br/>
+<%= text_field_with_keyboard 'user', 'email'  %></p>
+
+<p class="spaced"><label for="user_camipro">Camipro</label><br/>
+<%= text_field_with_keyboard 'user', 'camipro'  %></p>
+
+<p class="spaced"><label for="user_picture">Picture URL</label><br/>
+<%= text_field_with_keyboard 'user', 'picture'  %></p>
+
+  <%= submit_tag "Save" %>
+</form>
+
+<%= button_to "Cancel", :action => 'show_state', :id => @user.id %>
+
+</div>

@@ -1,0 +1,73 @@
+***
+*** Ruditeria Documentation
+***
+
+FOREWORD
+--------
+
+This is the documentation for ruditeria project. This project was developed in March 2006 by Gilles Cherix <gilles.cherix@gmail.com>, Gregory Dyke <gregdyke@gmail.com> and Florian Jousset <florian.jousset@gmail.com> for the LTHC.
+
+
+PRINCIPLES
+----------
+
+The tool is based on debian testing installed in March 2006. MySQL 5 is used as a database backend. lighttpd is the current webserver. Ruby on Rails has been installed from the current gems. root password for debian and mysql is "lthc0ff33".
+
+
+FIREFOX
+-------
+
+We rely on Firefox 1.5, since it wasn't part of Debian etch as installation we had to install it using the official installer. Its located in /usr/local/firefox. We need this extension to load it in full screen :
+
+http://www.krickelkrackel.de/autohide/
+
+
+use a .xinitrc with a single line inside in order to launch firefox at X startup 
+with the parameter -fullscreen like this :
+
+firefox -fullscreen
+
+
+AUTOLOGIN
+---------
+
+To avoid having to log a user in, we created an autologin.c which looks like this:
+
+int main() {
+    execlp( "login", "login", "-f", "replace_with_username", 0);
+}
+
+compiled it, put it in /usr/local/sbin and changed inittab line :
+
+1:2345:respawn:/sbin/getty 38400 tty1
+
+to look :
+
+1:2345:respawn:/sbin/getty -n -l /usr/local/sbin/autologin 38400 tty1
+
+
+WEBCAM
+-----
+
+Palantir is used for streaming. It's launched at startup by /etc/init.d/palantir. It uses the TCP port 4000. It relies on the last version of pwc which has been manually compiled and copied to /var/lib/modules to replace the version in place. Installed version is 0.11 at the moment. Everything can be found on http://www.saillard.org/linux/pwc.
+
+
+TOUCHSCREEN
+-----------
+Fedora Core 4 Version, unpacked in /tmp... edit the installation script to remove any call to rpm tools. Installation needs tcl-dev and you should link /usr/bin/tclsh to /usr/bin/tcl
+
+http://www.egalax.com.tw/
+
+SOURCE CODE
+-----------
+
+The source code is located in a darcs repository. Ruby code that controls the applications is located in a subdirectory named "app". The database schema is in "db/ruditeria.sql".
+
+When installed on another configuration you have to take care of two things :
+	- database configuration in "config/database.yml" which should point to a db of given schema
+	- IMAGES_PATH configuration in "config/environment.rb" which should contain an absolute path to the "public/images" directory
+	
+BUGS
+----
+
+There are no known bugs at the writing of this documentation. If you need further information please contact Gilles Cherix <gilles.cherix@gmail.com>

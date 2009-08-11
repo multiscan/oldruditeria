@@ -1,0 +1,161 @@
+#keyboard #letters { 
+  margin-right:200px;
+  margin-top:0px;
+}
+
+#keyboard #numbers { 
+  float:right;
+  width: 200px;
+  margin-top:0px;
+}
+
+#keyboard ol { 
+  padding-left:0px;
+  cursor:pointer;
+}
+
+#keyboard li { 
+  list-style:none;
+  display:block;
+  cursor:pointer;
+}
+
+#keyboard #letters > li { 
+  float:left;
+}
+
+#keyboard #numbers > li { 
+  float:right;
+}
+
+#keyboard #numbers > li,#keyboard #letters > li { 
+  margin:1px;
+  height:40px;
+  width:55px;
+  border:2px outset green;
+  text-align:center;
+  background-color:#efe;
+  color:#030;
+  font-weight:bold;
+  font-size:16px;
+  font-family:verdana, helvetica, sans;
+  padding-top:15px;
+}
+
+#keyboard #numbers > li:keyactive, #keyboard #letters > li:keyactive, #keyboard  #keyboard_ok:keyactive, #keyboard #keyboard_cancel:keyactive { 
+  border-style:inset;
+}
+
+#keyboard #letters .row { 
+  clear:left;
+}
+
+#keyboard #numbers .row { 
+  clear:right;
+}
+
+#keyboard #letters .first { 
+  margin-left:55px;
+}
+
+#keyboard #letters .second { 
+  width:75px;
+}
+
+#keyboard #letters .third { 
+  width:100px;
+}
+
+#keyboard #letters .fourth { 
+  margin-left:120px;
+  width:380px;
+}
+
+#keyboard #letters .fourth + * { 
+  width:150px;
+}
+
+#keyboard #display { 
+  margin:70px;
+  color:#003;
+  font-family:Courier, monospace;
+  font-weight:bold;
+  font-size:30px;
+}
+
+#keyboard div { 
+  clear:both;
+}
+
+#keyboard #commands { 
+  margin:70px 70px;
+}
+
+#keyboard #keyboard_ok, #keyboard #keyboard_cancel { 
+  margin:20px;
+  text-align:center;
+  padding:10px 150px;
+  border: 3px outset;
+  display: block;
+  float:left;
+}
+
+#keyboard #keyboard_ok { 
+  border-color:green;
+  background-color:#dfd;
+  color:#030;
+  padding:10px 170px;
+}
+
+#keyboard #keyboard_cancel { 
+  border-color:orange;
+  background-color:#fed;
+  color:#230;
+}
+
+#keyboard .keyinactive { 
+  display:none;
+}
+
+#keyboard #letters > li.down { 
+  background-color:#fed;  
+}
+
+#keyboard #letters .special .discrete { 
+  position:relative;
+  font-weight:normal;
+  font-size:10px;
+  color:#696;
+  top:-11px;
+}
+
+#keyboard #letters .special .keyactive { 
+  background-color:#dfd;
+  position:relative;
+  top:5px;
+}
+
+#keyboard #letters .special .keyactive + .discrete { 
+  top:-30px;
+}
+
+#keyboard #letters .special .discrete + .keyactive { 
+  top:-8px;
+}
+
+#keyboard .lastchar { 
+  border-right:2px solid #696;
+}
+
+#keyboard.active {
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:100%;
+  background-color:white;
+}
+
+#keyboard.inactive {
+  display:none;
+}

@@ -1,0 +1,17 @@
+<html>
+<head>
+  <title>Users: <%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'buy.css' %>
+  <%= stylesheet_link_tag 'ScreenSaver.css' %>
+  <%= javascript_include_tag 'ScreenSaver' %>
+  <%= javascript_include_tag 'WindowLoad' %>
+  <%= @content_for_header %>
+</head>
+<body style="overflow:hidden">
+
+<p style="color: green"><%= flash[:notice] %></p>
+
+<%= @content_for_layout %>
+<%= @content_for_body %>
+</body>
+</html>
