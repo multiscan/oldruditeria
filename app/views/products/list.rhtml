@@ -15,7 +15,9 @@
 		<% if column.name == "visible" %>
 			<td><%= (product.send(column.name) == 1) ? "Yes" : "No" %></td>
 		<% else %>
+                   <% unless column.name=="comment" %>
 			<td><%=h product.send(column.name) %></td>
+                   <% end %>
 		<% end %>
   <% end %>
 		<% # find its assigned cost %>

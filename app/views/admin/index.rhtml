@@ -45,9 +45,9 @@
 
 	<% for user in User.current_users %>
 		<tr class="<%= row_class %>">
-			<td class="report" style="<%= user.balance < 0 ? 'color:red' : 'color: green' %>">
+			<td class="report" style="<%= user.balance < -0.01 ? 'color:red' : 'color: green' %>">
 			  <%= "Fr. %.2f" % user.balance %></td>
-			<td class="report"><%= Inflector.humanize(user.name) %></td>
+			<td class="report"><a href="mailto:<%=user.email%>"><%=Inflector.humanize(user.name)%></a></td>
 			<% for product in @products %>
 				<td class="report" style="text-align: center"><%=  user.purchase_count(product.id, @start_of_report, @end_of_report) %></td>
 			<% end %>

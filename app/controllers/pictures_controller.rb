@@ -2,6 +2,7 @@ class PicturesController < ApplicationController
    layout "buy"
 
 def index
+   File.delete("#{IMAGES_PATH}/people/snap.jpg") if File.exist?("#{IMAGES_PATH}/people/snap.jpg")
    @user = params[:id]
 end
 
