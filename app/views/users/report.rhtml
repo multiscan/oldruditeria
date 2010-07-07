@@ -7,14 +7,14 @@
   <th class="report">Balance</th>
   <th class="report">Name</th>
   <% for product in @products %>
-    <th class="report"><%= Inflector.humanize(product.name) %></th>
+    <th class="report"><%= h(product.name) %></th>
   <% end %>
   </tr>
 
 	<% for user in User.current_users %>
 		<tr class="<%= row_class %>">
 			<td class="report" style="text-align: right"><%= String(user.balance) << ' CHF' %></td>
-			<td class="report"><%= Inflector.humanize(user.name) %></td>
+			<td class="report"><%= h(user.name) %></td>
 			<% for product in @products %>
 				<td class="report" style="text-align: center"><%=  user.purchase_count(product.id, @start_of_report, @end_of_report) %></td>
 			<% end %>
@@ -29,7 +29,7 @@
 		<% if user.balance < 0 %>
 			<tr class="<%= row_class %>" style="padding-top: 2em">
 				<td class="report" style="text-align: right"><%= String(user.balance) << ' CHF' %></td>
-				<td class="report"><%= Inflector.humanize(user.name) %></td>
+				<td class="report"><%= h(user.name) %></td>
 				<% for product in @products %>
 					<td class="report" style="text-align: center"><%=  user.purchase_count(product.id, @start_of_report, @end_of_report) %></td>
 				<% end %>
@@ -42,7 +42,7 @@
 		<% if (user.balance >= 0 and user.expiry > @start_of_report and user.expiry < @end_of_report) %>
 			<tr class="<%= row_class %>" style="padding-top: 2em">
 				<td class="report" style="text-align: right"><%= String(user.balance) << ' CHF' %></td>
-				<td class="report"><%= Inflector.humanize(user.name) %></td>
+				<td class="report"><%= h(user.name) %></td>
 				<% for product in @products %>
 					<td class="report" style="text-align: center"><%=  user.purchase_count(product.id, @start_of_report, @end_of_report) %></td>
 				<% end %>

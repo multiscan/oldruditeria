@@ -1,0 +1,10 @@
+.bundle
+db/*.sqlite3
+db/schema.rb
+log/*.log
+tmp/**/*
+public/stylesheets/*.css
+public/stylesheets/.sass-cache/
+public/uploads
+vendor/bundle
+
