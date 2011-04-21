@@ -1,7 +1,7 @@
 <h1>Editing payment</h1>
 
 <%= form_tag :action => 'update', :id => @payment %>
-  <%= render_partial 'form' %>
+  <%= render :partial => 'form' %>
   <%= submit_tag 'Edit' %>
 </form>
 
