@@ -7,6 +7,8 @@ tmp/
 Gemfile.lock
 public/stylesheets/*.css
 public/stylesheets/.sass-cache/
+public/images/people
+public/images/people/
 public/uploads
 vendor/bundle
 vendor/bundler
