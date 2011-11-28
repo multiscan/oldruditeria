@@ -60,7 +60,7 @@ function setup_webcam() {
       jQuery("#status").hide();
       jQuery("#trigger").show();
       jQuery("#spinner").hide();
-      jQuery("#preview img").replaceWith("<img src='pictures/preview?'+d.getTime() />");
+      jQuery("#preview img").replaceWith("<img src='pictures/preview?'+Date.getTime() />");
       jQuery("#preview").show();
   	},
     onCapture: function () {
