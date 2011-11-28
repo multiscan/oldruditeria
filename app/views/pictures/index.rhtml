@@ -1,5 +1,30 @@
 <div style="text-align:center; margin-top: 100px;">
-<span class="shotbutton"><%= link_to "Shot!", :action => "shot", :id => @user %></span>
-<img src="<%=WEBCAM_URL%>" />
-<span class="shotbutton"><%= link_to "Cancel", :controller => "buy", :action => "show_state", :id => @user %></span>
+  <div id="camera"></div>
+  <div id="trigger">
+    <p>
+      <span class="shotbutton"><a href="javascript:do_capture();">Take a picture</a></span>
+      <span class="shotbutton"><%= link_to "Cancel", :controller => "buy", :action => "show_state", :id => @user %></span>
+    </p>
+  </div>
+  <div id="status">&nbsp;</div>
+  <% if (RAILS_ENV=="development") %>
+    <div id="debug"><p id="debugstatus"></p></div>
+  <% end %>
+  <div id="spinner">
+    <img id="spinner" src="/images/spinner.gif" />
+  </div>
+  <div id="preview">
+    <img />
+    <p>
+      <span class="shotbutton"><%= link_to "Yeah, keep it!", :action => "save", :id => @user %></span>
+    </p>
+  </div>
+  <p>
+  </p>
+  <!--
+  <p><canvas id="canvas" height="240" width="320"></canvas></p>
+  <span class="shotbutton"><%= link_to "Shot!", :action => "shot", :id => @user %></span>
+  <img src="<%=WEBCAM_URL%>" />
+  <span class="shotbutton"><%= link_to "Cancel", :controller => "buy", :action => "show_state", :id => @user %></span>
+  -->
 </div>

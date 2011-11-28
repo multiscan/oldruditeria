@@ -1,33 +1,46 @@
+require 'fileutils'
 class PicturesController < ApplicationController
-   layout "buy"
+  layout "pictures"
 
-def index
-   File.delete("#{IMAGES_PATH}/people/snap.jpg") if File.exist?("#{IMAGES_PATH}/people/snap.jpg")
-   @user = params[:id]
-end
-
-def shot
+  def index
+    File.delete("#{IMAGES_PATH}/people/snap.jpg") if File.exist?("#{IMAGES_PATH}/people/snap.jpg")
     @user = params[:id]
-    
-    system "wget '#{WEBCAM_URL}?mode=single' -O #{IMAGES_PATH}/people/snap.jpg"
-end
+    session[:user_id]=params[:id]
+  end
 
-def save
+  def shot
+    File.open(tmp_pic_path(), 'wb') {|file| file.write(request.raw_post.scan(/../).map{ |b| b.to_i(16) }.pack('C*'))}
+  end
+
+  def preview
+    File.open(tmp_pic_path(), 'rb') do |f|
+      send_data f.read, :type => "image/jpeg", :disposition => "inline"
+    end
+  end
+
+  def save
     @user = User.find(params[:id])
 
     uid_string=sprintf "%04d", @user.id
     filename=Dir.glob("#{IMAGES_PATH}/people/#{uid_string}_*.jpg").sort.last
-    pid_string= if filename 
-                  sprintf "%04d", File.basename(filename, ".jpg").split("_")[1].to_i+1
-                else
-                  "000"
-                end
-    system "mv #{IMAGES_PATH}/people/snap.jpg #{IMAGES_PATH}/people/#{uid_string}_#{pid_string}.jpg"
-    @user.picture = "/images/people/#{uid_string}_#{pid_string}.jpg"
+    pid = File.basename(filename, ".jpg").split("_")[1].to_i+1
+    pid_string = filename ? sprintf("%04d", pid) : "000"
+    name="/images/people/#{uid_string}_#{pid_string}.jpg"
+    path="#{IMAGES_PATH}/people/#{uid_string}_#{pid_string}.jpg"
+    FileUtils.mv(tmp_pic_path(), path)
+    @user.picture = name
     unless @user.save
       puts "************************************** could not update picture infos for user #{@user.id}"
     end
     redirect_to :controller => "buy", :action => "show_state", :id => @user.id
-end
+  end
 
+ private
+
+  def tmp_pic_path()
+    puts "params[:id]=#{params[:id]}  session[:id]=#{session[:user_id]}"
+    res="/tmp/ruditeria_tmp_pic_#{params[:id]||session[:user_id]}.jpg"
+    puts "tmp_pic_path=#{res}"
+    return res
+  end
 end
