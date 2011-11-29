@@ -31,7 +31,6 @@ function setup_webcam() {
     mode: "save",
     swffile: "/swf/jscam.swf",
     onTick: function(remain) {
-      console.debug("onTick");
       if (0 == remain) {
           jQuery("#status").text("Cheese!");
           jQuery("#spinner").show();          
@@ -41,7 +40,6 @@ function setup_webcam() {
     },
     // this is called for every line of the picture
   	onSave: function(data) {
-      console.debug("onSave");
       //      var col = data.split(";");
       //      var img = image;
       // for(var i = 0; i < 320; i++) {
@@ -64,30 +62,26 @@ function setup_webcam() {
       jQuery("#preview").show();
   	},
     onCapture: function () {
-      console.debug("onCapture in");
       webcam.save('http://localhost:3000/pictures/shot');
-      console.debug("onCapture out");
       // webcam.save('http://localhost/~cangiani/ruditeria/shot.php');
     },
     // debug: function (type, string) {
     //   $("#debugstatus").html(type + ": " + string);
     // },    
-    onLoad: function() {
-      console.debug("onLoad");
-      // if (jQuery("#debug").length > 0) {
-      //   jQuery("#debug").append("<ul>");
-      //   var cams = webcam.getCameraList();
-      //   for(var i in cams) {
-      //       jQuery("#debug").append("<li><a href='javascript:set_cam("+i+");'>" + cams[i] + "</a></li>");
-      //   }
-      //   jQuery("#debug").append("</ul>");        
-      // }
-    },
+    // onLoad: function() {
+    //   // if (jQuery("#debug").length > 0) {
+    //   //   jQuery("#debug").append("<ul>");
+    //   //   var cams = webcam.getCameraList();
+    //   //   for(var i in cams) {
+    //   //       jQuery("#debug").append("<li><a href='javascript:set_cam("+i+");'>" + cams[i] + "</a></li>");
+    //   //   }
+    //   //   jQuery("#debug").append("</ul>");        
+    //   // }
+    // },
   });
 }
 
 function do_capture() {
-  console.debug("do_capture");
   jQuery("#trigger").hide();
   jQuery("#preview").hide();
   jQuery("#status").show();
