@@ -3,13 +3,13 @@ class PicturesController < ApplicationController
   layout "pictures"
 
   def index
-    File.delete("#{IMAGES_PATH}/people/snap.jpg") if File.exist?("#{IMAGES_PATH}/people/snap.jpg")
     @user = params[:id]
     session[:user_id]=params[:id]
   end
 
   def shot
-    File.open(tmp_pic_path(), 'wb') {|file| file.write(request.raw_post.scan(/../).map{ |b| b.to_i(16) }.pack('C*'))}
+    # File.open(tmp_pic_path(), 'wb') {|file| file.write(request.raw_post.scan(/../).map{ |b| b.to_i(16) }.pack('C*'))}
+    File.open(tmp_pic_path(), 'wb') {|file| file.write(request.raw_post)}
   end
 
   def preview
