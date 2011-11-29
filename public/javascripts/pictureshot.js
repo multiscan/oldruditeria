@@ -15,7 +15,7 @@ function setup_webcam() {
 }
 
 function start_countdown() {
-  show_timeout = 3;
+  shot_timeout = 3;
   jQuery("#status").show();
   jQuery("#shot_button").hide();
   jQuery("#save_button").hide();
