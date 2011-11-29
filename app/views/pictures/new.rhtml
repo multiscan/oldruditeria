@@ -1,0 +1,12 @@
+<div style="text-align:center; margin-top: 100px;">
+  <div id="camera"></div>
+  <div id="buttons">
+    <p>
+      <span class="shotbutton" id="shot_button"><a href="javascript:start_countdown();">Take a picture</a></span>
+      <span class="shotbutton" id="save_button"><a href="javascript:do_save(<%=@user.id%>);">Yeah, keep it!</a></span>
+      <span class="shotbutton" id="reset_button"><a href="javascript:do_reset();">Try again</a></span>
+      <span class="shotbutton" id="cancel_button"><%= link_to "Cancel", :controller => "buy", :action => "show_state", :id => @user %></span>
+    </p>
+  </div>
+  <div id="status">&nbsp;</div>
+</div>

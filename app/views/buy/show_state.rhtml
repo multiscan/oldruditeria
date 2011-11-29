@@ -6,7 +6,7 @@
 <div id="userinfo">
 
 <div style="margin-bottom:100px;">
-<a href="/pictures?id=<%= @user.id %>"><%= image_tag(@user.get_picture, :alt => "Add my own picture!", :size => "100") %></a>
+<a href="/pictures/new?id=<%= @user.id %>"><%= image_tag(@user.get_picture, :alt => "Add my own picture!", :size => "100") %></a>
 <%= link_to @user.name, :action => "edit_user", :id => @user.id %>
 </div>
 

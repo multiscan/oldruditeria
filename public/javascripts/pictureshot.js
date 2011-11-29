@@ -1,60 +1,72 @@
-// TODO: the API is nicer than what I use here. In fact it is possible to "freeze"
-// the display of the camera and then save it. Instead of uploading each time the temp shot.
-
-var spinner = null;
 var shot_timeout = 3;
 
 function setup_webcam() {
-  
-  webcam.set_api_url( '/pictures/shot' );
+  webcam.set_api_url( '/pictures/create' );
   webcam.set_quality( 90 ); // JPEG quality (1 - 100)
   webcam.set_shutter_sound(true,"/swf/shutter.mp3" ); // play shutter click sound
   webcam.set_swf_url("/swf/jpegcam.swf");
-  webcam.set_hook('onComplete', 'do_preview');
+  webcam.set_hook('onComplete', 'do_preview()');
   
   jQuery("#camera").prepend(webcam.get_html(320, 240))
-  jQuery("#preview").hide();
-  jQuery("#spinner").hide();
-  // var canvas = document.getElementById("canvas");  
-  // if (canvas.getContext) {
-  //  ctx = document.getElementById("canvas").getContext("2d");
-  //  ctx.clearRect(0, 0, 320, 240);
-  // 
-  //  var img = new Image();
-  //  img.src = "/images/jquery_webcam_logo.gif";
-  //  img.onload = function() {
-  //    ctx.drawImage(img, 129, 89);
-  //  }
-  //  image = ctx.getImageData(0, 0, 320, 240);
-  // }
-  
+
+  jQuery("#shot_button").show();
+  jQuery("#save_button").hide();
+  jQuery("#reset_button").hide();
+}
+
+function start_countdown() {
+  show_timeout = 3;
+  jQuery("#status").show();
+  jQuery("#shot_button").hide();
+  jQuery("#save_button").hide();
+  jQuery("#reset_button").hide();
+  countdown();
+}
+
+function countdown() {
+  var msg;
+  switch(shot_timeout) {
+    case 0:
+      msg="Click";
+      do_capture();
+      break;
+    case 1:
+      msg="Cheese!";
+    default:
+      msg="Shooting in " + shot_timeout + " seconds...";
+  }
+  jQuery("#status").text(msg);
+  if (shot_timeout>0) {
+    shot_timeout = shot_timeout - 1;
+    window.setTimeout('countdown()', 1000);    
+  } else {
+    do_capture();
+  }
 }
 
 function do_capture() {
-  switch(shot_timeout) {
-    case 0:
-      shot_timeout = 3;
-      jQuery("#spinner").show();
-      webcam.snap();
-      return;
-    case 1:
-      jQuery("#status").text("Cheese!");
-      break;
-    default:
-      webcam.reset();
-      jQuery("#preview").hide();
-      jQuery("#status").text("Shooting in " + shot_timeout + " seconds...");
-      jQuery("#status").show();
-      break;
-  }
-  shot_timeout = shot_timeout - 1;
-  window.setTimeout('do_capture()', 1000);
-  return;
+  window.setTimeout('jQuery("#status").hide()', 500);
+  webcam.freeze();
+  jQuery("#shot_button").hide();
+  jQuery("#save_button").show();
+  jQuery("#reset_button").show();
+}
+
+function do_save(user_id) {
+  webcam.upload();
+  window.location = "/buy/show_state?id="+user_id;
 }
 
 function do_preview() {
+  jQuery("#save_button").show();
+  jQuery("#reset_button").show();
   jQuery("#status").hide();
-  jQuery("#spinner").hide();
-  jQuery("#preview img").replaceWith("<img src='/pictures/preview?'+Date.getTime() />");
-  jQuery("#preview").show();
+}
+
+function do_reset() {
+  jQuery("#shot_button").show();
+  jQuery("#save_button").hide();
+  jQuery("#reset_button").hide();
+  jQuery("#status").hide();
+  webcam.reset();
 }
